@@ -1,0 +1,12 @@
+<h1>Pomodo</h1>
+<form id="add-task-form" method="POST" action="/task">
+    <label id="add-task-label" for="task">Type a new task: </label>
+    <input id="add-task-input" type="text" name="task" id="task"/>
+
+    <button type="submit">Add</button>
+</form>
+<div id="current-tasks">
+    {{#each tasks}}
+        {{> task}}
+    {{/each}}
+</div>
