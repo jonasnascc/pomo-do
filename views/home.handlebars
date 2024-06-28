@@ -1,8 +1,21 @@
 <h1>Pomodo</h1>
-<form id="add-task-form" method="POST" action="/task">
-    <label id="add-task-label" for="task">Type a new task: </label>
-    <input id="add-task-input" type="text" name="task" id="task"/>
-
+<form id="add-task-form" method="POST" action="/tasks">
+    <label id="add-task-label" for="task-desc">Type a new task: </label>
+    <input 
+        id="add-task-input" 
+        type="text" 
+        name="description" 
+        id="task-desc"
+    />
+    
+    <label id="add-task-label" for="task-pomos">Pomodoros: </label>
+    <input 
+        id="add-task-pomos" 
+        type="number" 
+        name="pomodoros" 
+        id="task-pomos"
+    />
+    
     <button type="submit">Add</button>
 </form>
 <div id="current-tasks">
