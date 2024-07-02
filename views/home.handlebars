@@ -18,6 +18,16 @@
     
     <button type="submit">Add</button>
 </form>
+<hr/>
+<form id="search-task-form" method="GET" action="/tasks">
+    <label for="task-id">Search by id: </label>
+    <input
+        id="task-id"
+        name="id"
+        type="number"
+    />
+    <button type="submit">search</button>
+</form>
 <div id="current-tasks">
     {{#each tasks}}
         {{> task}}

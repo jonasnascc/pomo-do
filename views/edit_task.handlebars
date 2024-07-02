@@ -1,0 +1,22 @@
+<h1>Edit task</h1>
+<form id="add-task-form" method="POST" action="/tasks/updatetask">
+    <input type="hidden" name="id" value="{{task.id}}"
+    <label id="add-task-label" for="task-desc">Type a new task: </label>
+    <input 
+        type="text" 
+        name="description" 
+        id="task-desc"
+        value="{{task.description}}"
+    />
+    
+    <label id="add-task-label" for="task-pomos">Pomodoros: </label>
+    <input 
+        type="number" 
+        name="pomodoros" 
+        id="task-pomos"
+        value="{{task.pomodoros}}"
+    />
+    
+    <button type="submit">Save</button>
+    <a href="/">Cancel</a>
+</form>
