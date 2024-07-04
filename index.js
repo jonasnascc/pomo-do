@@ -4,9 +4,10 @@ const app = express()
 const exphbs = require("express-handlebars")
 const conn = require("./db/conn")
 
+const {Op} = require("sequelize")
+
 const Task = require("./models/Task")
 const TaskGroup = require("./models/TaskGroup")
-const { redirect } = require("express/lib/response")
 
 const hbs = exphbs.create({
     partialsDir: ["views/partials"]
@@ -41,16 +42,27 @@ app.get("/", async (req, res) => {
     }
 })
 
-//read by id
+//read by id and/or group
 app.get("/tasks", async (req, res) => {
     const id = req.query.id
-    if(!id) {
+    const taskgroupId = req.query.taskgroupId
+    if(!id && !taskgroupId) {
         res.redirect("/")
         return
     }
-    const task = await Task.findOne({ raw:true, where: {id: id} })
 
-    res.render("home", {tasks: [{id:id, ...task}]})
+    const idCond = id ? {id : id} : {}
+    const tgCond = taskgroupId ? {taskgroupId: taskgroupId} : {}
+
+    const tasks = await Task.findAll({ where: {
+    [Op.or]: [idCond, tgCond],
+    }, })
+    const taskgroups = await TaskGroup.findAll({raw:true})
+
+    res.render("home", {
+        tasks: tasks.map(tsk => tsk.get({plain:true})),
+        taskgroups
+    })
 })
 
 //create

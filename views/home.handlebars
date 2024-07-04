@@ -30,6 +30,9 @@
     <button type="submit">Save task</button>
 </form>
 <hr/>
+
+{{#if tasks}}
+<h2>Tasks</h2>
 <form id="search-task-form" method="GET" action="/tasks">
     <label for="task-id">Search by id: </label>
     <input
@@ -37,6 +40,15 @@
         name="id"
         type="number"
     />
+    {{#if taskgroups}}
+        <label for="taskgroupId">Search by group: </label>
+        <select name="taskgroupId" id="taskgroup">
+            <option value="">None</option>
+            {{#each taskgroups}}
+                {{> taskgroup}}
+            {{/each}}
+        </select>
+    {{/if}}
     <button type="submit">search</button>
 </form>
 <div id="current-tasks">
@@ -44,3 +56,6 @@
         {{> task}}
     {{/each}}
 </div>
+{{else}}
+<div>No tasks found.</div>
+{{/if}}
