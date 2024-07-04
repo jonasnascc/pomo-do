@@ -1,6 +1,6 @@
 const {Sequelize} = require('sequelize')
 
-const sequelize = new Sequelize("pomododb","root", "", {
+const sequelize = new Sequelize("pomododb", "root", "", {
     host: "localhost",
     dialect: "mysql"
 })
