@@ -1,5 +1,6 @@
 <div id="task-tile">
     <p id="task-description">{{this.id}}# {{this.description}}</p>
+    <p id="task-tg"><strong>Group:</strong> {{this.taskgroup.name}}</p>
     <p id="task-pomodoros">{{this.pomodoros}} pomodoros</p>
     <a href="/tasks/edit/{{this.id}}">Edit</a>
     <form method="POST" action="/tasks/delete/{{this.id}}">

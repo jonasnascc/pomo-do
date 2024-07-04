@@ -5,6 +5,7 @@ const exphbs = require("express-handlebars")
 const conn = require("./db/conn")
 
 const Task = require("./models/Task")
+const TaskGroup = require("./models/TaskGroup")
 
 const hbs = exphbs.create({
     partialsDir: ["views/partials"]
@@ -27,9 +28,16 @@ const port = 3000
 
 //read
 app.get("/", async (req, res) => {
-    const tasks = await Task.findAll({raw: true})
-    console.log(tasks)
-    res.render("home", {tasks})
+    try{
+        const tasks = await Task.findAll({include: TaskGroup})
+        const taskgroups = await TaskGroup.findAll({raw:true})
+        res.render("home", {
+            tasks : tasks.map(task => task.get({plain: true})),
+            taskgroups
+        })
+    } catch(err) {
+        console.log(err)
+    }
 })
 
 //read by id
@@ -45,11 +53,33 @@ app.get("/tasks", async (req, res) => {
 })
 
 //create
-app.post("/tasks", (req,res) => {
+app.post("/tasks", async (req,res) => {
     const description = req.body.description
     const pomodoros = req.body.pomodoros
+    const taskgroupName = req.body.taskgroup
+    const newTg = req.body.newTaskgroup
 
-    Task.create({description, pomodoros})
+    const task = {
+        description, 
+        pomodoros
+    }
+
+    if(newTg && newTg.trim() !== "none"){
+        const tgExists = await TaskGroup.findOne({raw: true, where: {name: newTg.trim()}})
+        if(!tgExists){
+            const saved = await TaskGroup.create({
+                name: newTg.trim()
+            })
+            task.taskgroupId = saved.id
+        }
+        else task.taskgroupId = tgExists.id
+    } else if(taskgroupName) {
+        const tgExists = await TaskGroup.findOne({raw: true, where: {name: taskgroupName}})
+        if(tgExists) task.taskgroupId = tgExists.id
+    }
+    
+    
+    await Task.create(task)
 
     res.redirect("/")
 })

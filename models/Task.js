@@ -2,7 +2,9 @@ const {DataTypes} = require("sequelize")
 
 const db = require("../db/conn")
 
-const Task = db.define("User", {
+const TaskGroup = require("./TaskGroup")
+
+const Task = db.define("Task", {
     description : {
         type: DataTypes.STRING,
         require: true
@@ -12,5 +14,9 @@ const Task = db.define("User", {
         required: true
     }
 })
+
+
+TaskGroup.hasMany(Task)
+Task.belongsTo(TaskGroup)
 
 module.exports = Task

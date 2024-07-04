@@ -2,7 +2,6 @@
 <form id="add-task-form" method="POST" action="/tasks">
     <label id="add-task-label" for="task-desc">Type a new task: </label>
     <input 
-        id="add-task-input" 
         type="text" 
         name="description" 
         id="task-desc"
@@ -10,10 +9,27 @@
     
     <label id="add-task-label" for="task-pomos">Pomodoros: </label>
     <input 
-        id="add-task-pomos" 
         type="number" 
         name="pomodoros" 
         id="task-pomos"
+    />
+
+    <label for="taskgroup">Select group</label>
+    
+    {{#if taskgroups}}
+        <select name="taskgroup" id="taskgroup">
+            <option value="none">None</option>
+            {{#each taskgroups}}
+                {{> taskgroup}}
+            {{/each}}
+        </select>
+        <a>Delete selected group</a>
+    {{/if}}
+
+    <label for="newTaskgroup">Add new group</label>
+    <input 
+        name="newTaskgroup"
+        type="string"
     />
     
     <button type="submit">Add</button>
