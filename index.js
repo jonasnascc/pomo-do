@@ -6,6 +6,7 @@ const conn = require("./db/conn")
 
 const Task = require("./models/Task")
 const TaskGroup = require("./models/TaskGroup")
+const { redirect } = require("express/lib/response")
 
 const hbs = exphbs.create({
     partialsDir: ["views/partials"]
@@ -56,29 +57,14 @@ app.get("/tasks", async (req, res) => {
 app.post("/tasks", async (req,res) => {
     const description = req.body.description
     const pomodoros = req.body.pomodoros
-    const taskgroupName = req.body.taskgroup
-    const newTg = req.body.newTaskgroup
+    const taskgroupId = req.body.taskgroupId
 
     const task = {
         description, 
-        pomodoros
+        pomodoros,
+        taskgroupId
     }
 
-    if(newTg && newTg.trim() !== "none"){
-        const tgExists = await TaskGroup.findOne({raw: true, where: {name: newTg.trim()}})
-        if(!tgExists){
-            const saved = await TaskGroup.create({
-                name: newTg.trim()
-            })
-            task.taskgroupId = saved.id
-        }
-        else task.taskgroupId = tgExists.id
-    } else if(taskgroupName) {
-        const tgExists = await TaskGroup.findOne({raw: true, where: {name: taskgroupName}})
-        if(tgExists) task.taskgroupId = tgExists.id
-    }
-    
-    
     await Task.create(task)
 
     res.redirect("/")
@@ -105,6 +91,40 @@ app.post("/tasks/updatetask", async (req, res) => {
     }
 
     await Task.update(taskData, {where: {id:id}})
+    res.redirect("/")
+})
+
+//delete task group
+app.post("/tasks/groups/delete/:id", async (req, res) => {
+    const id = req.body.id
+    await TaskGroup.destroy({
+        where: {id : id}
+    })
+
+    redirect("/")
+})
+
+app.get("/tasks/groups/create", (req,res) => {
+    res.render("create_taskgroup")
+})
+
+//create task group
+app.post("/tasks/groups", async (req, res) => {
+    const {
+        name,
+        maxTasks
+    } = req.body
+
+    if(name && name.trim() !== "none"){
+        const tgExists = await TaskGroup.findOne({raw: true, where: {name: name.trim()}})
+        if(!tgExists){
+            await TaskGroup.create({
+                name: name.trim(),
+                maxTasks : maxTasks ? maxTasks : 100
+            })
+        }
+    }
+
     res.redirect("/")
 })
 

@@ -1,4 +1,4 @@
-<h1>Pomodo</h1>
+<h1 id="logo">Pomodo</h1>
 <form id="add-task-form" method="POST" action="/tasks">
     <label id="add-task-label" for="task-desc">Type a new task: </label>
     <input 
@@ -17,22 +17,17 @@
     <label for="taskgroup">Select group</label>
     
     {{#if taskgroups}}
-        <select name="taskgroup" id="taskgroup">
-            <option value="none">None</option>
+        <select name="taskgroupId" id="taskgroup">
             {{#each taskgroups}}
                 {{> taskgroup}}
             {{/each}}
         </select>
-        <a>Delete selected group</a>
+    {{else}}
+        <p>No task groups found.</p>
     {{/if}}
+    <a href="/tasks/groups/create">Add new task group</a>
 
-    <label for="newTaskgroup">Add new group</label>
-    <input 
-        name="newTaskgroup"
-        type="string"
-    />
-    
-    <button type="submit">Add</button>
+    <button type="submit">Save task</button>
 </form>
 <hr/>
 <form id="search-task-form" method="GET" action="/tasks">
