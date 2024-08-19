@@ -1,0 +1,36 @@
+.creation-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 20vw;
+}
+
+.create-task-title {
+    font-size: 18px;
+    text-align: center;
+}
+
+.create-btn {
+    display: flex;
+    justify-content: end;
+}
+
+.task-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.task-input label {
+    font-size: 16px;
+}
+
+.task-input textarea, .task-input input{
+}
