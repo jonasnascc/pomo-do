@@ -8,7 +8,14 @@
             </div>
             <div class="task-input description-input">
                 <label for="description">Description:</label>
-                <textarea type="text" name="description" placeholder="Describe the task"></textarea>
+                <textarea 
+                    type="text" 
+                    name="description" 
+                    placeholder="Describe the task"
+                    minlength="1"
+                    maxlength="255"
+                    rows="3"
+                ></textarea>
             </div>
             <div class="create-btn">
                 <button class="btn btn-primary" type="submit">

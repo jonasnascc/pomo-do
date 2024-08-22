@@ -8,8 +8,17 @@ body {
     background-color: #FEFEFE;
 }
 
+textarea {
+    resize: none;
+}
+
+textarea, input {
+    font-size: 16px;
+}
+
 .btn {
     font-size: 16px;
+    padding: 3px .5vw;
 }
 
 .row {
@@ -25,7 +34,6 @@ body {
 .tasks-col {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 10px;
 }
 
@@ -58,8 +66,16 @@ body {
     flex: 1;
 }
 
-.tsk-action {
-    color: inherit;
+.tsk-action-form {
+    display: inline;
+}
+
+.action-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline;
+    padding: 0;
 }
 
 .task-pomodoros, .task-description {

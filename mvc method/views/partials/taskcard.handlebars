@@ -3,9 +3,18 @@
         <div class="task-title-bar">
             <div class="task-title">{{this.title}}</div>
             <div class="task-actions">
-                <a href="#" class="tsk-action"><i class="bi bi-check"></i></a>
-                <a href="#" class="tsk-action"><i class="bi bi-trash"></i></a>
-                <a href="#" class="tsk-action"><i class="bi bi-x"></i></a>
+                <form class="tsk-action-form" method="POST" action="/tasks/remove">
+                    <input type="hidden" name="id" value="{{this.id}}"/>
+                    <button class="action-button" type="submit"><i class="bi bi-check"></i></button>
+                </form>
+                <form class="tsk-action-form" method="POST" action="/tasks/remove">
+                    <input type="hidden" name="id" value="{{this.id}}"/>
+                    <button class="action-button" type="submit"><i class="bi bi-trash"></i></button>
+                </form>
+                <form class="tsk-action-form" method="POST" action="/tasks/remove">
+                    <input type="hidden" name="id" value="{{this.id}}"/>
+                    <button class="action-button" type="submit"><i class="bi bi-x"></i></button>
+                </form>
             </div>
         </div>
         <div class="task-pomodoros">{{this.pomodoros}} pomodoros</div>
