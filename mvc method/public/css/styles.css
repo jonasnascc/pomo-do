@@ -82,6 +82,18 @@ textarea, input {
     font-size: 14px;
 }
 
+.task-pomodoros {
+    color: #008518;
+}
+
+.tasks-list-title {
+    background-color: #e1e1e1;
+    font-weight: 500;
+    padding: 2px;
+    padding-left: 1vw;
+    margin-bottom: 10px;
+}
+
 hr {
     margin: 0;
 }

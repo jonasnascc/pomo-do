@@ -3,18 +3,33 @@
         <div class="task-title-bar">
             <div class="task-title">{{this.title}}</div>
             <div class="task-actions">
-                <form class="tsk-action-form" method="POST" action="/tasks/remove">
-                    <input type="hidden" name="id" value="{{this.id}}"/>
-                    <button class="action-button" type="submit"><i class="bi bi-check"></i></button>
-                </form>
+                {{#unless this.done}}
+                    <form class="tsk-action-form" method="POST" action="/tasks/done">
+                        <input type="hidden" name="id" value="{{this.id}}"/>
+                        <button class="action-button" type="submit"><i class="bi bi-check"></i></button>
+                    </form>
+                {{/unless}}
                 <form class="tsk-action-form" method="POST" action="/tasks/remove">
                     <input type="hidden" name="id" value="{{this.id}}"/>
                     <button class="action-button" type="submit"><i class="bi bi-trash"></i></button>
                 </form>
-                <form class="tsk-action-form" method="POST" action="/tasks/remove">
-                    <input type="hidden" name="id" value="{{this.id}}"/>
-                    <button class="action-button" type="submit"><i class="bi bi-x"></i></button>
-                </form>
+                {{#if this.inProgress}}
+                    <form class="tsk-action-form" method="POST" action="/tasks/inProgress">
+                        <input type="hidden" name="id" value="{{this.id}}"/>
+                        <button class="action-button" type="submit"><i class="bi bi-x"></i></button>
+                    </form>
+                {{else}}
+                    {{#if this.done}}
+                        <form class="tsk-action-form" method="POST" action="/tasks/done">
+                            <input type="hidden" name="id" value="{{this.id}}"/>
+                            <button class="action-button" type="submit"><i class="bi bi-x"></i></button>
+                        </form>
+                    {{/if}}
+                    <form class="tsk-action-form" method="POST" action="/tasks/inProgress">
+                        <input type="hidden" name="id" value="{{this.id}}"/>
+                        <button class="action-button" type="submit"><i class="bi bi-arrow-right-short"></i></button>
+                    </form>
+                {{/if}}
             </div>
         </div>
         <div class="task-pomodoros">{{this.pomodoros}} pomodoros</div>

@@ -11,6 +11,7 @@ module.exports = class TaskController {
         const task = {
             title: req.body.title,
             description: req.body.description,
+            pomodoros: req.body.pomodoros,
             done: false
         }
 
@@ -49,4 +50,31 @@ module.exports = class TaskController {
 
         res.redirect('/tasks')
     }
+
+    static async toggleTaskDone(req, res) {
+        const id = req.body.id
+        const task = await Task.findOne({where:{id : id}, raw: true})
+
+        console.log(task)
+
+        task.done = !Boolean(task.done)
+        task.inProgress = false
+
+        await Task.update(task, {where: {id: id}})
+
+        res.redirect("/tasks")
+    }
+
+    static async toggleTaskInProgress(req, res){
+        const id = req.body.id
+        const task = await Task.findOne({where:{id : id}, raw: true})
+
+        task.inProgress = !Boolean(task.inProgress)
+        task.done = false
+
+        await Task.update(task, {where: {id: id}})
+
+        res.redirect("/tasks")
+    }
+
 }
