@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./api/index.js localhost 3000"
+    "dev": "nodemon ./api/index.js localhost 3000",
+    "start": "node ./api/index.js"
   },
   "author": "JonasNascc\u001b[D\u001b[C\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Dgithub.com/JonasNascc",
   "license": "ISC",

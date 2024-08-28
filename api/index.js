@@ -4,14 +4,14 @@ const exphbs = require('express-handlebars')
 
 const app = express()
 
-const conn = require('../db/conn')
+const conn = require('./db/conn')
 
-const Task = require('../models/Task')
+const Task = require('./models/Task')
 
-const taskRoutes = require('../routes/taskRoutes')
+const taskRoutes = require('./routes/taskRoutes')
 
-app.set("views", path.join(__dirname, ".." , "views"))
-app.use(express.static('public'))
+app.set("views", path.join(__dirname, "views"))
+app.use(express.static(path.join(__dirname, "public")))
 
 
 app.engine('handlebars', exphbs.engine())
