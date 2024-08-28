@@ -3,9 +3,16 @@ const {Sequelize} = require('sequelize')
 
 const DATABASE_URL = process.env?.DATABASE_URL ?? "" 
 
-console.log()
+let sequelize = null;
 
-const sequelize = new Sequelize(DATABASE_URL, {dialect: "postgres", dialectModule: pg})
+if(DATABASE_URL) {
+    sequelize = new Sequelize(DATABASE_URL, {dialect: "postgres", dialectModule: pg})
+} else {
+    sequelize = new Sequelize('pomododb', 'root', '', {
+        host: 'localhost',
+        dialect: "mysql"
+    })
+}
 
 try{
     sequelize.authenticate()
@@ -13,5 +20,6 @@ try{
 } catch(error) {
     console.log("Connnection Error:", error)
 }
+
 
 module.exports = sequelize
