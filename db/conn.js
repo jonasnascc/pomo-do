@@ -1,13 +1,14 @@
 const {Sequelize} = require('sequelize')
 
-const sequelize = new Sequelize('pomododb', 'root', '', {
-    host: 'localhost',
-    dialect: "mysql"
-})
+const DATABASE_URL = process.env?.DATABASE_URL ?? "" 
+
+console.log()
+
+const sequelize = new Sequelize(DATABASE_URL, {dialect: "postgres"})
 
 try{
     sequelize.authenticate()
-    console.log("Connected to MySQL")
+    console.log("Connected to Database")
 } catch(error) {
     console.log("Connnection Error:", error)
 }
