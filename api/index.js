@@ -25,8 +25,13 @@ app.use(
 
 app.use(express.json())
 
-
 app.use('/tasks', taskRoutes)
+
+app.get('/', async (req,res) => {
+    const tasks = await Task.findAll({raw:true})
+    res.render('index', {tasks: tasks})
+})
+
 
 conn    
     .sync()

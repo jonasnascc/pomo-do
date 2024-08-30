@@ -1,11 +1,8 @@
 const Task = require('../models/Task')
 
 module.exports = class TaskController {
-    static createTask(req, res) {
-        res.render('tasks/create')
-    }
     static showTasks(req, res) {
-        res.render('tasks/all')
+        res.render('index')
     }
     static async createTaskSave(req, res) {
         const task = {
@@ -17,12 +14,7 @@ module.exports = class TaskController {
 
         await Task.create(task)
 
-        res.redirect('/tasks')
-    }
-
-    static async showTasks(req, res) {
-        const tasks = await Task.findAll({raw:true})
-        res.render('tasks/all', {tasks: tasks})
+        res.redirect('/')
     }
 
     static async removeTask(req,res) {
@@ -30,7 +22,7 @@ module.exports = class TaskController {
 
         await Task.destroy({where: {id:id}})
 
-        res.redirect("/tasks")
+        res.redirect("/")
     }
 
     static async updateTask(req, res) {
@@ -48,7 +40,7 @@ module.exports = class TaskController {
 
         await Task.update(task, {where: {id:id}})
 
-        res.redirect('/tasks')
+        res.redirect('/')
     }
 
     static async toggleTaskDone(req, res) {
@@ -62,7 +54,7 @@ module.exports = class TaskController {
 
         await Task.update(task, {where: {id: id}})
 
-        res.redirect("/tasks")
+        res.redirect("/")
     }
 
     static async toggleTaskInProgress(req, res){
@@ -74,7 +66,7 @@ module.exports = class TaskController {
 
         await Task.update(task, {where: {id: id}})
 
-        res.redirect("/tasks")
+        res.redirect("/")
     }
 
 }
