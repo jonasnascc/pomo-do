@@ -9,6 +9,7 @@ const conn = require('./db/conn')
 const Task = require('./models/Task')
 
 const taskRoutes = require('./routes/taskRoutes')
+const authRoutes = require('./routes/authRoutes')
 
 app.set("views", path.join(__dirname, "views"))
 app.use(express.static(path.join(__dirname, "public")))
@@ -26,6 +27,7 @@ app.use(
 app.use(express.json())
 
 app.use('/tasks', taskRoutes)
+app.use('/', authRoutes)
 
 app.get('/', async (req,res) => {
     const tasks = await Task.findAll({raw:true})
